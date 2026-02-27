@@ -56,7 +56,7 @@ Resume advice is generated using OpenAI’s GPT‑4 model.  For each resume, the
 
 User satisfaction with suggestions is tracked (~82 %).
 
-## 💻 Development Setup
+## Development Setup
 
 1. **Backend**
    ```bash
