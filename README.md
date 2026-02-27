@@ -1,17 +1,17 @@
-# Rscann
+# Hana Recruit
 
 Resume scanning / job‑matching application built with React front‑end and Express/Node back‑end. The service evaluates uploaded resumes against job descriptions using a lightweight heuristic scoring engine and provides AI‑powered suggestions.
 
-## 🚀 Key Features
+## Key Features
 
 - **Resume scoring** based on keyword overlap, experience, projects and skills.
-- **AI suggestion module** (GPT‑4) offers phrasing tips and job‑fit advice.
+- **AI suggestion module** offers phrasing tips and job‑fit advice.
 - **Web UI** built with React + Vite; backend REST API in Node/Express.
 - **File uploads** saved to `/uploads` and used for parsing.
 - **AWS deployment** via Docker images stored in ECR and running on ECS Fargate with autoscaling.
 - **CI/CD pipeline** tags images and updates ECS services automatically.
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 /backend         # Node/Express server
@@ -22,7 +22,7 @@ Resume scanning / job‑matching application built with React front‑end and Ex
     middleware/   # auth, file handling
     config/       # db, S3 setup
   Dockerfile      # backend container
-/frontend or src # React front-end (Vite)
+/src
   components/     # UI pieces
   pages/          # routes
   layouts/
@@ -35,7 +35,7 @@ docker-compose.yml
 nginx.conf        # reverse proxy
 ```
 
-## 🛠️ Scoring Algorithm
+## Scoring Algorithm
 
 The server uses `backend/src/services/scoring.service.js` with rules rather than embeddings.  Each resume is given a score (0–100) by summing:
 
@@ -46,7 +46,7 @@ The server uses `backend/src/services/scoring.service.js` with rules rather than
 
 All components are rounded and clamped to 100.
 
-## 🤖 AI Suggestions
+## AI Suggestions
 
 Resume advice is generated using OpenAI’s GPT‑4 model.  For each resume, the system requests 5–10 tailored prompts that:
 
@@ -77,30 +77,23 @@ User satisfaction with suggestions is tracked (~82 %).
 Create a `.env` in `backend` with:
 
 ```
-PORT=3000
+PORT=5000
 DATABASE_URL=...
-AWS_ACCESS_KEY_ID=...
-AWS_SECRET_ACCESS_KEY=...
 OPENAI_API_KEY=...
 ```
 
-## 📦 Deployment
+## Deployment
 
 Images pushed to ECR:
 
-- `rscann-backend:latest` (v1.3 …)
+- `rscann-backend:latest`
 - `rscann-frontend:latest`
 
-ECS services run on Fargate, auto‑scaling from 1 to 5 tasks supporting ~5 k reqs/hour.  The `docker-compose.yml` and root `Dockerfile` are used for local testing.
+ECS services run on Fargate, used load balancer for autoscaling .  The `docker-compose.yml` and root `Dockerfile` are used for local testing.
 
-## 🔧 CI/CD
+## CI/CD
 
 Pipeline builds, tags to ECR, and updates ECS via AWS CLI.  Releases happen ~4×/month with zero‑downtime rolling updates.
 
-## 📄 License
-
-MIT License – see [LICENSE](LICENSE) for details.
 
 ---
-
-*Generated from project context.*
