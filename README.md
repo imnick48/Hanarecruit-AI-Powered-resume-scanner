@@ -91,9 +91,5 @@ Images pushed to ECR:
 
 ECS services run on Fargate, used load balancer for autoscaling .  The `docker-compose.yml` and root `Dockerfile` are used for local testing.
 
-## CI/CD
-
-Pipeline builds, tags to ECR, and updates ECS via AWS CLI.  Releases happen ~4×/month with zero‑downtime rolling updates.
-
 
 ---
